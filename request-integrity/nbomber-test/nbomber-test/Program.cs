@@ -17,7 +17,7 @@ namespace PerfTest
                 .CreateScenario("step1", TestStep.GetStep(httpFactory))
                 .WithWarmUpDuration(TimeSpan.FromSeconds(1))
                 .WithLoadSimulations(new []{
-                    Simulation.KeepConstant(copies: 4, during: TimeSpan.FromSeconds(15))
+                    Simulation.KeepConstant(copies: 1, during: TimeSpan.FromSeconds(15))
                 });
 
             NBomberRunner

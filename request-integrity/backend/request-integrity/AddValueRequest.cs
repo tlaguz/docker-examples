@@ -29,7 +29,7 @@ public class AddValueRequest
             return "";
         }
 
-        redis.StringSet(key, value);
+        redis.StringSet(key, value, TimeSpan.FromSeconds(60));
 
         context.Response.StatusCode = (int)HttpStatusCode.OK;
         return "";
