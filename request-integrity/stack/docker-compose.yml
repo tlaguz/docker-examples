@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  redis:
+    image: redis:latest
+    deploy:
+      replicas: 1
+    networks:
+      backbone:
+        aliases:
+          - redis
+  backend:
+    image: tlaguz/docker-examples:request-integrity-backend
+    ports:
+      - 8080:80
+    networks:
+      backbone:
+        aliases:
+          - backend
+    secrets:
+      - source: redis_connectionstring
+        target: /app/appsettings.redis.json
+
+networks:
+  backbone:
+    driver: overlay
+    attachable: true
+    ipam:
+      config:
+        - subnet: 192.168.18.0/24
+    driver_opts:
+      encrypted: ""
+
+secrets:
+  redis_connectionstring:
+    file: "redis_connectionstring.json"
